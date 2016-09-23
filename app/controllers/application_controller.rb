@@ -4,7 +4,7 @@ require 'rack-flash'
 class ApplicationController < Sinatra::Base
 
   use Rack::Flash
-  
+
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
@@ -16,6 +16,14 @@ class ApplicationController < Sinatra::Base
   # should expect logic for redirects to login, and signup
   get '/' do  
     erb :index
+  end
+
+  get '/login' do 
+    erb :'users/login'
+  end
+
+  get '/signup' do 
+    erb :'/signup'
   end
 
 
