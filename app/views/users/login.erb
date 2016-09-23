@@ -1,1 +1,15 @@
-this is the login page
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
+
+
+<h1> Login to Team Builder! </h1>
+
+<form method="POST" action="/login">
+
+Name: <input type="text" name="username">
+Password: <input type="password" name="password">
+
+<input type="submit" value="Login">
+
+</form>

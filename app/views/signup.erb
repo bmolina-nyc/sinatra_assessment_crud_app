@@ -1,1 +1,16 @@
-this is the signup page
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
+<% #the above is to flash a message %>
+
+
+<h1> Signup for Team Builder! </h1>
+
+<form method="POST" action="/signup">
+
+Name: <input type="text" name="username">
+Password: <input type="password" name="password">
+
+<input type="submit" value="Create User">
+
+</form>
