@@ -2,15 +2,21 @@ NOTES
 
 ## Goal of this project 
 
-- Nokogiri/Open-Uri the players from the yankee page
-- Each player can probably be placed into a class by position?
-- Pull that information down from a website and bring it into my program in some text fashion that can be stubbed out into the form I need via some class methods
-- Make these players viewable and have their own individual pages - want to Nokogiri/Open-Uri their 2016 stat line
-- Write a post on each players page - you can update or delete your post if it is your post.
-- A Roster has many :pitchers, :catchers, :infielders, :outfielders, :DH
-- A :pitcher, :catcher, :infielder, :outfielder, belong to a Roster
-- A player has many stats
-- A stat has many players
-- I can make a table - player_stats, with a player_id, and a stat_id?
- 
+- Create logins that allow a User to make a Roster and make Players for that Roster
+- A user can edit a Roster and Edit a Players stats, if they created that player or stat
+- Make these players viewable and have their own individual pages - want to give them an average, homeruns, and rbi stats
+- A Roster has many Pitchers and Fielders
+- A Pitcher and a Fielder belong to a Roster
+
+
+A User has many Rosters
+A Roster belongs to a User (need a user_id)
+A Roster has many Players
+A Player has many Rosters  (cuz we are going to trade players between rosters - will set it up that this action can happen automantically across Users)
+
+Will create the following tables
+create_users
+create_rosters
+create_players
+create_player_rosters it will have a Roster ID and a Player ID
 
