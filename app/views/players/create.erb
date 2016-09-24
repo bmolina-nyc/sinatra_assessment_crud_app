@@ -1,0 +1,29 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
+
+<h1> <%= @user.username %>, Create a Player! </h1>
+
+<form method="POST" action="/players/create">
+
+<h3>Name: <input type="text" name="name"> </h3>
+
+<h3>Position:
+<input type="checkbox" name="position[]" value="pitcher"> Pitcher 
+<input type="checkbox" name="position[]" value="infielder"> Infielder
+<input type="checkbox" name="position[]" value="outfielder"> Outfielder
+</h3>
+
+<h3>Salary: <input type="text" name="salary"><br><br></h3>
+
+<h2>Choose a team for your player</h2>
+
+<%Roster.all.each do |roster| %>
+<input type="checkbox" name="rosters[]" value="<%= roster.id %>"><%= roster.roster_name %>
+<%end%>
+
+<br><br>
+
+<input type="submit" value="Create Player">
+
+</form>

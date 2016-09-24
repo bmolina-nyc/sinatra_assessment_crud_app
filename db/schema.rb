@@ -20,9 +20,7 @@ ActiveRecord::Schema.define(version: 20160922235854) do
   create_table "players", force: :cascade do |t|
     t.string  "name"
     t.string  "position"
-    t.integer "average"
-    t.integer "home_runs"
-    t.integer "rbis"
+    t.integer "salary"
   end
 
   create_table "rosters", force: :cascade do |t|

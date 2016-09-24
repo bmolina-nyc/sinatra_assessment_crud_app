@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/index' do 
+    binding.pry
     if current_user 
       @user = current_user
       erb :'users/index'

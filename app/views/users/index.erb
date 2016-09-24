@@ -2,20 +2,25 @@
   <%= flash[:message] %>
 <% end %>  
 
-
-index for roster - this is a users homepage
 <h1>Welcome <%=@user.username %> </h1>
+
+
+<h2> These are the rosters you created - Click to view roster </h2> 
+  <ul><% @user.rosters.each do |roster| %>
+    <li><a href="/rosters/<%=roster.roster_name %>"><%=roster.roster_name%></a> </li>
+    <br>
+  <% end %> </ul>
 
 <h2>Please Make a Selection </h2>
 
-# user should be able to make rosters
-# user should be able to make players
-# user should be able to assign player to a roster
+# user should be able to make rosters <br>
+# user should be able to make players <br>
+# user should be able to assign player to a roster <br>
 
-
-<a href="/rosters/create">Create Roster</a>
-<a href="/rosters/create">Create Players</a>
-
+<ul>
+<li><a href="/rosters/create">Create Roster</a></li>
+<li><a href="/players/create">Create Players</a></li>
+</ul>
 
  <a href="/logout">
       <button>Logout</button>

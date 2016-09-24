@@ -2,18 +2,6 @@ require './config/environment'
 require 'rack-flash'
 
 class RostersController < ApplicationController 
-
-  # this is where a login gets routed
-  get '/rosters/index' do 
-    if current_user
-      @user = current_user
-      erb :'/rosters/index' 
-    else
-      flash[:message] = "You must be logged in to see a roster page!"
-      redirect to '/login'
-    end
-  end
-
   use Rack::Flash
 
   configure do
@@ -23,6 +11,37 @@ class RostersController < ApplicationController
     set :session_secret, "secret"
   end
 
+  # this is where a login gets routed - we want to see all rosters
+  get '/rosters/index' do 
+    if current_user
+       @user = current_user
+       erb :'/rosters/index' 
+     else
+       flash[:message] = "You must be logged in to see a roster page!"
+       redirect to '/users/login'
+     end
+  end
 
+  get '/rosters/create' do 
+     if logged_in?
+      @user = current_user 
+      erb :'rosters/create'
+    else
+      flash[:message] = "You must login to create a roster!"
+      redirect to '/users/login'
+    end
+  end
+
+  post '/rosters/create' do 
+    if !params[:roster_name].empty?
+      @roster = Roster.create(roster_name: params[:roster_name], user_id: current_user.id)
+      @roster.save
+      flash[:message] = "#{@roster.roster_name} created!"
+      redirect to '/users/index'
+    elsif params[:roster_name].empty?
+      flash[:message] = "Roster must have a name!"
+      redirect to '/rosters/create'
+    end
+  end
 
 end

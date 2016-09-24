@@ -3,9 +3,7 @@ class CreatePlayers < ActiveRecord::Migration
     create_table :players do |t|
       t.string :name
       t.string :position
-      t.integer :average
-      t.integer :home_runs
-      t.integer :rbis
+      t.integer :salary
     end
   end
 end
