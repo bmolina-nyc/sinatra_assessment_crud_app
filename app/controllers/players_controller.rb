@@ -71,7 +71,7 @@ class PlayersController < ApplicationController
   end
 
   post '/players/:slug/edit' do 
-
+    binding.pry
 
 
   end
