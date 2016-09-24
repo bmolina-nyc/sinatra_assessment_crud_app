@@ -1,5 +1,5 @@
 class Player < ActiveRecord::Base 
-  belongs_to :user
+  belongs_to :roster
   has_many :player_rosters
   has_many :rosters, through: :player_rosters
 

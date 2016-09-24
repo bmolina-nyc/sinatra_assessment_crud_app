@@ -43,11 +43,11 @@ class PlayersController < ApplicationController
       flash[:message] = "Player must have all fields filled out!"
       redirect to '/players/create'
     else
-      @player = Player.create(name: params[:name], position: params[:position].join, salary: params[:salary], user_id: current_user.id)
       @roster = Roster.find_by_id(params[:rosters])
+      @player = Player.create(name: params[:name], position: params[:position].join, salary: params[:salary], roster_id: @roster.id)
+      @player.rosters << @roster
       @player.save
-      @roster.players << @player
-      @roster.save
+  
       flash[:message] = "#{@player.name} created - Added to #{@roster.roster_name}"
       redirect to "/players/#{@player.slug}"
     end
@@ -56,11 +56,8 @@ class PlayersController < ApplicationController
   get '/players/:slug/edit' do 
     @player = Player.find_by_slug(params[:slug])
 
-    if current_user.id != @player.user_id
-      flash[:message] = "You can't edit a player you didn't create!"
-      redirect to '/players/index'
-    elsif @player.rosters.last.user_id != current_user.id
-      flash[:message] = "You can't edit a player you created if hes no longer on your team!"
+    if current_user.id != @player.rosters.last.user_id
+      flash[:message] = "You can't edit a player you didn't create or a player no longer on your team!"
       redirect to '/players/index'
     else
       @user = current_user
@@ -70,27 +67,34 @@ class PlayersController < ApplicationController
   end
 
   post '/players/:slug/edit' do
-    binding.pry
     @player = Player.find_by_slug(params[:slug])
 
      if !params[:position] || !params[:rosters]
       flash[:message] = "When editing, You must select one position and one roster for your player!"
-      redirect to '/players/edit'
+      redirect to '/players/index'
      elsif params[:rosters].count > 1 || params[:position].count > 1 
       flash[:message] = "When editing, You can only select a single position or roster for your new player!"
-      redirect to '/players/edit'
+      redirect to '/players/index'
      elsif params[:name].empty? || params[:salary].empty?
       flash[:message] = "Edited Player must have all fields filled out!"
       redirect to '/players/index'
       else
+      
+        # get the player out of the old roster 
+        @roster_old = Roster.find(@player.roster_id)
+        @roster_old.players.delete(@player.id)
+        @roster_old.save 
+
+        #get the player into the new roster and update any params accordingly 
+        @roster_new = Roster.find_by_id(params[:rosters])
         @player.name = params[:name]
         @player.position = params[:position].join
         @player.salary =  params[:salary]
-        @roster = Roster.find_by_id(params[:rosters])
-        @roster.players << @player unless @roster.players.include?(@player)
-        @player.rosters << @roster unless @player.rosters.include?(@player)
-        @player.save       
-        @roster.save
+        @player.roster_id = @roster_new.id
+       
+        @player.rosters << @roster_new
+        @player.save    
+
         flash[:message] = "#{@player.name} updated"
       end
     redirect to "/players/#{@player.slug}"

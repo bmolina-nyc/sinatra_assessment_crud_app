@@ -14,7 +14,8 @@ class ApplicationController < Sinatra::Base
 
   # this is an index page 
   # should expect logic for redirects to login, and signup
-  get '/' do  
+  get '/' do   
+
     erb :index
   end
   
