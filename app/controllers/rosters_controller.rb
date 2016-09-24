@@ -51,6 +51,11 @@ class RostersController < ApplicationController
     end
   end
 
+   get '/rosters/:slug/edit' do 
+
+    erb :'rosters/edit'
+  end
+
 
 
 end

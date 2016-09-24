@@ -33,6 +33,7 @@ class PlayersController < ApplicationController
   end
 
     post '/players/create' do 
+      binding.pry
     if !params[:position] || !params[:rosters]
       flash[:message] = "You must select one position and one roster for your player!"
       redirect to '/players/create'
@@ -43,7 +44,7 @@ class PlayersController < ApplicationController
       flash[:message] = "Player must have all fields filled out!"
       redirect to '/players/create'
     else
-      @player = Player.create(name: params[:name], position: params[:position], salary: params[:salary])
+      @player = Player.create(name: params[:name], position: params[:position].join, salary: params[:salary])
       @roster = Roster.find_by_id(params[:rosters])
       @player.save
       @roster.players << @player
@@ -51,6 +52,11 @@ class PlayersController < ApplicationController
       flash[:message] = "#{@player.name} created - Added to #{@roster.roster_name}"
       redirect to "/players/#{@player.slug}"
     end
+  end
+
+  get '/players/:slug/edit' do 
+
+    erb :'players/edit'
   end
 
 

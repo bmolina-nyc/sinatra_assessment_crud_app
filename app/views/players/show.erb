@@ -1,15 +1,17 @@
 # this is a player show page - this is supposed to show a single player<br>
 
-Name <%= @player.name %> <br>
-Position <%= @player.position %> <br>
-Salary <%= @player.salary %> <br>
+<h2> Name: <%= @player.name %> </h2><br>
+<h2>Position: <%= @player.position %> </h2><br>
+<h2>Salary: <%= @player.salary %> </h2><br>
 
-Current Team: <%= @player.rosters.first.roster_name %>
+<h2>Current Team: <%=@player.rosters.first.roster_name%></h2>
 
-
-<br>
-<br>
 
  <a href="/users/index">
       <button>Go Back</button>
+ </a>
+
+  <a href="/players/<%=@player.slug%>/edit">
+      <button>Edit Player</button>
  </a> 
+

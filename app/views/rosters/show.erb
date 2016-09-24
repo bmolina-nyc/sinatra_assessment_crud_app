@@ -1,14 +1,29 @@
 # a roster show page - this is suppsoed to show a single roster
-
+<br>
+lets see the roster name 
+lets see the roster players
+lets see combined salaries of roster
+show an update button - that redirects to 'rosters/update' page
 
 <br>
 
-<%= @roster.roster_name %>
+<h1><%= @roster.roster_name %></h1>
 
+<h2>Current Players</h2>
+<ul><% @roster.players.each do |player|  %>
+<li><a href="/players/<%=player.slug%>"><%=player.name%>, Salary: <%=player.salary%></a>            </li>
+<% end %> </ul>
+
+           
 
 <br>
 <br>
 
  <a href="/users/index">
       <button>Go Back</button>
+ </a> 
+
+
+  <a href="/rosters/<%=@roster.slug%>/edit">
+      <button>Edit Roster</button>
  </a> 
