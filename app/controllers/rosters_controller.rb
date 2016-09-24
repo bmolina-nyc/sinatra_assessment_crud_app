@@ -52,8 +52,13 @@ class RostersController < ApplicationController
   end
 
    get '/rosters/:slug/edit' do 
-
+    @roster = Roster.find_by_slug(params[:slug])
+    @user = current_user
     erb :'rosters/edit'
+  end
+
+  post '/rosters/:slug/edit' do 
+    binding.pry
   end
 
 

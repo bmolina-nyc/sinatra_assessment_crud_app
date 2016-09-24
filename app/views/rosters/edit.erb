@@ -1,1 +1,28 @@
 a roster edit page
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
+
+<h1> <%= @user.username %>, Edit the Roster! </h1>
+
+<form method="POST" action="/rosters/<%=@roster.slug%>/edit">
+
+Name: <input type="text" name="roster_name" placeholder="<%=@roster.roster_name%>"><br><br>
+
+<input type="submit" value="Edit Roster"> 
+
+</form>
+
+ <a href="/users/index">
+      <button>Go Back</button>
+ </a> 
+
+
+
+ LAST ITEMS LEFT ARE 
+ UPDATE THE ROSTER EDIT PORTION
+ ADD DELETE LOGIC FOR ROSTER AND PLAYER
+ MAKE SURE A USER CAN ONLY DELETE HIS ROSTER AND PLAYER 
+ CHECK FOR ISSUES WITH LOGIN AND GOING TO PAGES YOU'RE NOT ALLOWED TO 
+ 
