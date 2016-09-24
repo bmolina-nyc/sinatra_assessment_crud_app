@@ -6,7 +6,7 @@ player edit page
 
 <h1> <%= @user.username %>, Edit <%=@player.name%>!</h1>
 
-<form method="POST" action="/players/:slug/edit">
+<form method="POST" action="/players/<%= @player.slug%>/edit">
 
 <h3>Name: <input type="text" name="name" placeholder="<%=@player.name%>"> </h3>
 
@@ -22,7 +22,7 @@ player edit page
 <h2>Choose a new Roster for your player</h2>
 
 <%Roster.all.each do |roster| %>
-<input type="checkbox" name="rosters[]" value="<%= roster.roster_name %>" <%='checked' if roster == @player.rosters.last%>> <%= roster.roster_name %>
+<input type="checkbox" name="rosters[]" value="<%= roster.id %>" <%='checked' if roster == @player.rosters.last%>> <%= roster.roster_name %>
 <%end%>
 
 <br><br>

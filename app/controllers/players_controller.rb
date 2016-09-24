@@ -54,7 +54,6 @@ class PlayersController < ApplicationController
   end
 
   get '/players/:slug/edit' do 
-
     @player = Player.find_by_slug(params[:slug])
 
     if current_user.id != @player.user_id
@@ -70,10 +69,31 @@ class PlayersController < ApplicationController
     end
   end
 
-  post '/players/:slug/edit' do 
+  post '/players/:slug/edit' do
     binding.pry
+    @player = Player.find_by_slug(params[:slug])
 
-
+     if !params[:position] || !params[:rosters]
+      flash[:message] = "When editing, You must select one position and one roster for your player!"
+      redirect to '/players/edit'
+     elsif params[:rosters].count > 1 || params[:position].count > 1 
+      flash[:message] = "When editing, You can only select a single position or roster for your new player!"
+      redirect to '/players/edit'
+     elsif params[:name].empty? || params[:salary].empty?
+      flash[:message] = "Edited Player must have all fields filled out!"
+      redirect to '/players/index'
+      else
+        @player.name = params[:name]
+        @player.position = params[:position].join
+        @player.salary =  params[:salary]
+        @roster = Roster.find_by_id(params[:rosters])
+        @roster.players << @player unless @roster.players.include?(@player)
+        @player.rosters << @roster unless @player.rosters.include?(@player)
+        @player.save       
+        @roster.save
+        flash[:message] = "#{@player.name} updated"
+      end
+    redirect to "/players/#{@player.slug}"
   end
 
 
