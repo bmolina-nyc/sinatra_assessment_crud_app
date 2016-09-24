@@ -29,4 +29,4 @@ UPDATE goals
 - A user can see and click into all selectable Rosters that appear in the users/index and at the rosters/index page
 - rosters/show page will display Roster name, and all current Players
 - There needs to be an UPDATE form route that allows us to edit the Player or Roster, and allow us to Change the Players Info
-- If you didn't create the player or roster, you can't UPDATE it.
+- If you didn't create the player or roster, you can't UPDATE it. If you created a player but hes not on your roster, you cannot update.

@@ -1,4 +1,6 @@
-# player index page - these should be selectable players
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %> 
 
 <ul><% @players.each do |player| %>
 <li><a href="/players/<%=player.slug%>"><%=player.name%> </a></li><br>

@@ -1,1 +1,36 @@
 player edit page
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
+
+<h1> <%= @user.username %>, Edit <%=@player.name%>!</h1>
+
+<form method="POST" action="/players/:slug/edit">
+
+<h3>Name: <input type="text" name="name" placeholder="<%=@player.name%>"> </h3>
+
+<h3>Position:
+<input type="checkbox" name="position[]" value="pitcher"<%='checked' if  @current_position == "pitcher"  %>> Pitcher 
+<input type="checkbox" name="position[]" value="infielder"<%='checked' if  @current_position == "infielder" %>> Infielder
+<input type="checkbox" name="position[]" value="outfielder"<%='checked' if @current_position == "outfielder" %>> Outfielder
+</h3>
+
+
+<h3>Salary: <input type="text" name="salary" placeholder="<%=@player.salary%>"><br><br></h3>
+
+<h2>Choose a new Roster for your player</h2>
+
+<%Roster.all.each do |roster| %>
+<input type="checkbox" name="rosters[]" value="<%= roster.roster_name %>" <%='checked' if roster == @player.rosters.last%>> <%= roster.roster_name %>
+<%end%>
+
+<br><br>
+
+<input type="submit" value="Edit Player">
+
+</form>
+
+ <a href="/users/index">
+      <button>Go Back</button>
+ </a> 

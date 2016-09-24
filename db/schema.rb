@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160922235854) do
     t.string  "name"
     t.string  "position"
     t.integer "salary"
+    t.integer "user_id"
   end
 
   create_table "rosters", force: :cascade do |t|
