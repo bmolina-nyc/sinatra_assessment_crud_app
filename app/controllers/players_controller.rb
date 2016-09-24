@@ -23,7 +23,6 @@ class PlayersController < ApplicationController
   end
 
     post '/players/create' do 
-    binding.pry
     if !params[:position] || !params[:rosters]
       flash[:message] = "You must select one position and one roster for your player!"
       redirect to '/players/create'
@@ -42,6 +41,11 @@ class PlayersController < ApplicationController
       flash[:message] = "#{@player.name} created - Added to #{@roster.roster_name}"
       redirect to '/users/index'
     end
+  end
+
+  get '/players/index' do
+    @player = Player.all  
+    erb :'players/index'
   end
 
 

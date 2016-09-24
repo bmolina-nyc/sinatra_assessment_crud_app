@@ -44,4 +44,9 @@ class RostersController < ApplicationController
     end
   end
 
+  get '/rosters/index' do
+    @rosters = Roster.all 
+    erb :'rosters/index'
+  end
+
 end
