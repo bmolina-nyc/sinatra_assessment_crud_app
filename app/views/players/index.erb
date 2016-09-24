@@ -1,5 +1,8 @@
 # player index page - these should be selectable players
 
+<ul><% @players.each do |player| %>
+<li><a href="/players/<%=player.slug%>"><%=player.name%> </a></li><br>
+<% end %></ul>
 
 
  <a href="/users/index">

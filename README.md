@@ -1,3 +1,4 @@
 # sinatra_assessment_crud_app
-Check out the Yankees and their stats!
 
+
+Create a Roster of Baseball Players and Swap them between teams!

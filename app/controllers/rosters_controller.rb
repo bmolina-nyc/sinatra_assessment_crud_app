@@ -14,6 +14,7 @@ class RostersController < ApplicationController
   # this is where a login gets routed - we want to see all rosters
   get '/rosters/index' do 
     if current_user
+       @rosters = Roster.all
        @user = current_user
        erb :'/rosters/index' 
      else
@@ -22,7 +23,7 @@ class RostersController < ApplicationController
      end
   end
 
-  get '/rosters/create' do 
+    get '/rosters/create' do 
      if logged_in?
       @user = current_user 
       erb :'rosters/create'
@@ -32,21 +33,24 @@ class RostersController < ApplicationController
     end
   end
 
+  get '/rosters/:slug' do 
+    @roster = Roster.find_by_slug(params[:slug])
+    erb :'/rosters/show'
+  end
+
+
   post '/rosters/create' do 
     if !params[:roster_name].empty?
       @roster = Roster.create(roster_name: params[:roster_name], user_id: current_user.id)
       @roster.save
       flash[:message] = "#{@roster.roster_name} created!"
-      redirect to '/users/index'
+      redirect to "/rosters/#{@roster.slug}"
     elsif params[:roster_name].empty?
       flash[:message] = "Roster must have a name!"
       redirect to '/rosters/create'
     end
   end
 
-  get '/rosters/index' do
-    @rosters = Roster.all 
-    erb :'rosters/index'
-  end
+
 
 end

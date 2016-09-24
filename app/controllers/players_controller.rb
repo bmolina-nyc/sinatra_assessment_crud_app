@@ -12,6 +12,11 @@ class PlayersController < ApplicationController
     set :session_secret, "secret"
   end
 
+    get '/players/index' do
+    @players = Player.all  
+    erb :'players/index'
+  end
+
    get '/players/create' do 
     if logged_in?
       @user = current_user 
@@ -20,6 +25,11 @@ class PlayersController < ApplicationController
       flash[:message] = "You must login to create a player!"
       redirect to '/users/login'
     end
+  end
+
+  get '/players/:slug' do 
+    @player = Player.find_by_slug(params[:slug])
+    erb :'/players/show'
   end
 
     post '/players/create' do 
@@ -39,13 +49,8 @@ class PlayersController < ApplicationController
       @roster.players << @player
       @roster.save
       flash[:message] = "#{@player.name} created - Added to #{@roster.roster_name}"
-      redirect to '/users/index'
+      redirect to "/players/#{@player.slug}"
     end
-  end
-
-  get '/players/index' do
-    @player = Player.all  
-    erb :'players/index'
   end
 
 

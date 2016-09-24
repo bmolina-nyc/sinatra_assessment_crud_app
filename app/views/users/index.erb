@@ -7,7 +7,7 @@
 
 <h2> These are the rosters you created - Click to view roster </h2> 
   <ul><% @user.rosters.each do |roster| %>
-    <li><a href="/rosters/<%=roster.roster_name %>"><%=roster.roster_name%></a> </li>
+    <li><a href="/rosters/<%=roster.slug %>"><%=roster.roster_name%></a> </li>
     <br>
   <% end %> </ul>
 

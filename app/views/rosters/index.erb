@@ -1,5 +1,8 @@
 # roster index page - these should be selectable rosters
 
+<ul><% @rosters.each do |roster| %>
+<li><a href="/rosters/<%=roster.slug%>"><%=roster.roster_name%> </a></li><br>
+<% end %></ul>
 
 
 

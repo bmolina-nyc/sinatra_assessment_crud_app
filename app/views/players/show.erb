@@ -1,0 +1,15 @@
+# this is a player show page - this is supposed to show a single player<br>
+
+Name <%= @player.name %> <br>
+Position <%= @player.position %> <br>
+Salary <%= @player.salary %> <br>
+
+Current Team: <%= @player.rosters.first.roster_name %>
+
+
+<br>
+<br>
+
+ <a href="/users/index">
+      <button>Go Back</button>
+ </a> 
