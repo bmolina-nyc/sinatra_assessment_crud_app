@@ -57,7 +57,7 @@ class PlayersController < ApplicationController
     @player = Player.find_by_slug(params[:slug])
 
     if current_user.id != @player.rosters.last.user_id
-      flash[:message] = "You can't edit a player you didn't create or a player no longer on your team!"
+      flash[:message] = "You can't edit a player you didn't create or a player not on your team!"
       redirect to '/players/index'
     else
       @user = current_user
@@ -71,13 +71,13 @@ class PlayersController < ApplicationController
 
      if !params[:position] || !params[:rosters]
       flash[:message] = "When editing, You must select one position and one roster for your player!"
-      redirect to '/players/index'
+      redirect to "/players/#{@player.slug}/edit"
      elsif params[:rosters].count > 1 || params[:position].count > 1 
       flash[:message] = "When editing, You can only select a single position or roster for your new player!"
-      redirect to '/players/index'
+      redirect to "/players/#{@player.slug}/edit"
      elsif params[:name].empty? || params[:salary].empty?
       flash[:message] = "Edited Player must have all fields filled out!"
-      redirect to '/players/index'
+      redirect to "/players/#{@player.slug}/edit"
       else
       
         # get the player out of the old roster 
@@ -90,9 +90,9 @@ class PlayersController < ApplicationController
         @player.name = params[:name]
         @player.position = params[:position].join
         @player.salary =  params[:salary]
+        @player.rosters << @roster_new 
         @player.roster_id = @roster_new.id
-       
-        @player.rosters << @roster_new
+      
         @player.save    
 
         flash[:message] = "#{@player.name} updated"

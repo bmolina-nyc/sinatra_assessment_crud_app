@@ -53,12 +53,28 @@ class RostersController < ApplicationController
 
    get '/rosters/:slug/edit' do 
     @roster = Roster.find_by_slug(params[:slug])
-    @user = current_user
-    erb :'rosters/edit'
+
+    if !current_user.rosters.include?(@roster)
+      flash[:message] = "You cannot edit a roster you didn't create!"
+      redirect to '/rosters/index'
+    else
+      @user = current_user
+      erb :'rosters/edit'
+    end
   end
 
   post '/rosters/:slug/edit' do 
-    binding.pry
+
+    @roster = Roster.find_by_slug(params[:slug])
+    if params[:roster_name].empty?
+      flash[:message] = "Roster must have a name!"
+      redirect to '/rosters/:slug/edit'
+    else
+      @roster.roster_name = params[:roster_name]
+      @roster.save
+      flash[:message] = "Roster name updated!"
+      redirect to '/rosters/index'
+    end
   end
 
 

@@ -1,4 +1,6 @@
-# roster index page - these should be selectable rosters
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>  
 
 <ul><% @rosters.each do |roster| %>
 <li><a href="/rosters/<%=roster.slug%>"><%=roster.roster_name%> </a></li><br>
