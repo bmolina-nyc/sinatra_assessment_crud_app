@@ -12,15 +12,11 @@ Name: <input type="text" name="roster_name" placeholder="<%=@roster.roster_name%
 
 </form>
 
+ <form method="post" action="/rosters/<%=@roster.slug%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input id="Delete Roster" type="submit" value="Delete Roster">
+</form>
+
  <a href="/users/index">
       <button>Go Back</button>
  </a> 
-
-
-
- LAST ITEMS LEFT ARE 
- UPDATE THE ROSTER EDIT PORTION - DONE
- ADD DELETE LOGIC FOR ROSTER AND PLAYER
- MAKE SURE A USER CAN ONLY DELETE HIS ROSTER AND PLAYER 
- CHECK FOR ISSUES WITH LOGIN AND GOING TO PAGES YOU'RE NOT ALLOWED TO 
- 

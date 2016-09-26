@@ -100,6 +100,14 @@ class PlayersController < ApplicationController
     redirect to "/players/#{@player.slug}"
   end
 
+  delete '/players/:slug/delete' do 
+    @player = Player.find_by_slug(params[:slug])
+    @player.delete
+
+    flash[:message] = "The selected player was deleted"
+    redirect to '/users/index'
+  end 
+
 
 
 end

@@ -77,6 +77,18 @@ class RostersController < ApplicationController
     end
   end
 
+  delete '/rosters/:slug/delete' do 
+    @roster = Roster.find_by_slug(params[:slug])
+    
+    @roster.players.each do |player|
+      player.delete
+    end 
+    @roster.delete
+
+    flash[:message] = "Roster and all players deleted from #{current_user.username} rosters"
+    redirect to '/users/index'
+  end 
+
 
 
 end

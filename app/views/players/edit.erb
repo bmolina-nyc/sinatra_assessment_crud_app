@@ -29,6 +29,12 @@
 
 </form>
 
+<form method="post" action="/players/<%=@player.slug%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input id="Delete Player" type="submit" value="Delete Player">
+</form>
+
+
  <a href="/users/index">
       <button>Go Back</button>
  </a> 

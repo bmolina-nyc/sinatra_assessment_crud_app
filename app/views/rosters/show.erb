@@ -2,19 +2,17 @@
 
 <h2>Current Players</h2>
 <ul><% @roster.players.each do |player|  %>
-<li><a href="/players/<%=player.slug%>"><%=player.name%>, Salary: <%=player.salary%></a>            </li>
-<% end %> </ul>
+<li><a href="/players/<%=player.slug%>"><%=player.name%>, Salary: <%=player.salary%></a></li>
+<% end %></ul> 
 
            
+<a href="/users/index">
+  <button>Go Back</button>
+</a> 
 
-<br>
-<br>
+<br><br>
 
- <a href="/users/index">
-      <button>Go Back</button>
- </a> 
+<a href="/rosters/<%=@roster.slug%>/edit">
+  <button>Edit Roster</button>
+</a> 
 
-
-  <a href="/rosters/<%=@roster.slug%>/edit">
-      <button>Edit Roster</button>
- </a> 
