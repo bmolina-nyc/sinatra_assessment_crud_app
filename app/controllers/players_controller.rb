@@ -12,9 +12,14 @@ class PlayersController < ApplicationController
     set :session_secret, "secret"
   end
 
-    get '/players/index' do
-    @players = Player.all  
-    erb :'players/index'
+  get '/players/index' do
+    if current_user
+      @players = Player.all  
+      erb :'players/index'
+    else
+      flash[:message] = "You must be logged in to see a player page!"
+      redirect to '/users/login'
+    end
   end
 
    get '/players/create' do 

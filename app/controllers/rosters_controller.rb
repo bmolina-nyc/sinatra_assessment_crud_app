@@ -15,7 +15,6 @@ class RostersController < ApplicationController
   get '/rosters/index' do 
     if current_user
        @rosters = Roster.all
-       @user = current_user
        erb :'/rosters/index' 
      else
        flash[:message] = "You must be logged in to see a roster page!"
