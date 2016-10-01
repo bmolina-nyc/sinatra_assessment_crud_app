@@ -34,6 +34,7 @@ class PlayersController < ApplicationController
 
   get '/players/:slug' do 
     @player = Player.find_by_slug(params[:slug])
+    @roster = @player.rosters.last
     erb :'/players/show'
   end
 
@@ -84,20 +85,14 @@ class PlayersController < ApplicationController
       flash[:message] = "Edited Player must have all fields filled out!"
       redirect to "/players/#{@player.slug}/edit"
       else
-      
-        # get the player out of the old roster 
-        @roster_old = Roster.find(@player.roster_id)
-        @roster_old.players.delete(@player.id)
-        @roster_old.save 
 
         #get the player into the new roster and update any params accordingly 
-        @roster_new = Roster.find_by_id(params[:rosters])
+        @new_roster = Roster.find_by_id(params[:rosters])
         @player.name = params[:name]
         @player.position = params[:position].join
         @player.salary =  params[:salary]
-        @player.rosters << @roster_new 
-        @player.roster_id = @roster_new.id
-      
+        @player.rosters << @new_roster 
+        @player.roster_id = @new_roster.id
         @player.save    
 
         flash[:message] = "#{@player.name} updated"

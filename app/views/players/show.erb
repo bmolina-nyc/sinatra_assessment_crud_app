@@ -7,8 +7,10 @@
 <h2>Position: <%= @player.position %> </h2>
 <h2>Salary: <%= @player.salary %> </h2>
 
-<h2>Current Team: <%=@player.rosters.last.roster_name%></h2>
-
+<h2>Team History</h2>
+<ul><% @player.rosters.each do |roster|  %>
+    <li><a href="/rosters/<%=roster.slug%>"><%=roster.roster_name%></a></li>
+<% end %></ul> 
 
  <a href="/users/index">
       <button>Go Back</button>

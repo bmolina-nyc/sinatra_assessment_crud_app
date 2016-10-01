@@ -20,7 +20,7 @@
 <h2>Choose a new Roster for your player</h2>
 
 <%Roster.all.each do |roster| %>
-<input type="checkbox" name="rosters[]" value="<%= roster.id %>" <%='checked' if roster == @player.rosters.last%>> <%= roster.roster_name %>
+<input type="checkbox" name="rosters[]" value="<%= roster.id %>" <%='checked' if roster.id == @player.roster_id%>> <%= roster.roster_name %>
 <%end%>
 
 <br><br>

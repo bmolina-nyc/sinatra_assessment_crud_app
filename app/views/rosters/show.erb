@@ -1,8 +1,10 @@
 <h1><%= @roster.roster_name %></h1>
 
 <h2>Current Players</h2>
-<ul><% @roster.players.each do |player|  %>
-<li><a href="/players/<%=player.slug%>"><%=player.name%>, Salary: <%=player.salary%></a></li>
+<ul><% @roster.players.uniq.each do |player|  %>
+  <% if player.roster_id == @roster.id %>
+    <li><a href="/players/<%=player.slug%>"><%=player.name%>, Salary: <%=player.salary%></a></li>
+    <% end %>
 <% end %></ul> 
 
            
