@@ -75,28 +75,28 @@ class PlayersController < ApplicationController
   post '/players/:slug/edit' do
     @player = Player.find_by_slug(params[:slug])
 
-     if !params[:position] || !params[:rosters]
-      flash[:message] = "When editing, You must select one position and one roster for your player!"
-      redirect to "/players/#{@player.slug}/edit"
-     elsif params[:rosters].count > 1 || params[:position].count > 1 
-      flash[:message] = "When editing, You can only select a single position or roster for your new player!"
-      redirect to "/players/#{@player.slug}/edit"
-     elsif params[:name].empty? || params[:salary].empty?
-      flash[:message] = "Edited Player must have all fields filled out!"
-      redirect to "/players/#{@player.slug}/edit"
-      else
+    if !params[:position] || !params[:rosters]
+     flash[:message] = "When editing, You must select one position and one roster for your player!"
+     redirect to "/players/#{@player.slug}/edit"
+    elsif params[:rosters].count > 1 || params[:position].count > 1 
+     flash[:message] = "When editing, You can only select a single position or roster for your new player!"
+     redirect to "/players/#{@player.slug}/edit"
+    elsif params[:name].empty? || params[:salary].empty?
+     flash[:message] = "Edited Player must have all fields filled out!"
+     redirect to "/players/#{@player.slug}/edit"
+    else
 
-        #get the player into the new roster and update any params accordingly 
-        @new_roster = Roster.find_by_id(params[:rosters])
-        @player.name = params[:name]
-        @player.position = params[:position].join
-        @player.salary =  params[:salary]
-        @player.rosters << @new_roster 
-        @player.roster_id = @new_roster.id
-        @player.save    
+      #get the player into the new roster and update any params accordingly 
+      @new_roster = Roster.find_by_id(params[:rosters])
+      @player.name = params[:name]
+      @player.position = params[:position].join
+      @player.salary =  params[:salary]
+      @player.rosters << @new_roster unless @new_roster == @player.roster
+      @player.roster = @new_roster
+      @player.save    
 
-        flash[:message] = "#{@player.name} updated"
-      end
+      flash[:message] = "#{@player.name} updated"
+    end
     redirect to "/players/#{@player.slug}"
   end
 

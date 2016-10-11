@@ -6,6 +6,7 @@
 <h2> Name: <%= @player.name %> </h2>
 <h2>Position: <%= @player.position %> </h2>
 <h2>Salary: <%= @player.salary %> </h2>
+<h2>Current Team: <%= @player.roster.roster_name %></h2>
 
 <h2>Team History</h2>
 <ul><% @player.rosters.each do |roster|  %>
